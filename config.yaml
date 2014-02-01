@@ -1,0 +1,7 @@
+---
+mysql:
+  username: username
+  password: password
+  hostname: hostname
+version: 2.17.14
+user_agent: 'Clementine IRC Bot. Source: http://github.com/catepillar/tyrant-clementine'
