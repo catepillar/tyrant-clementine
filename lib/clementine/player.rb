@@ -3,6 +3,7 @@ require "net/http"
 require "uri"
 require 'zlib'
 require 'json'
+require 'yaml'
 require 'mysql2'
 
 module Clementine
@@ -10,16 +11,21 @@ module Clementine
 		
 		def initialize(opts = {})
 			@user_id=opts[:user_id].to_i
-			@db = Mysql2::Client.new( :host=>"localhost",:username => "tyrant_user",:database=>"tyrant", :reconnect => true )
-			@version = "2.17.14"
+			yaml = YAML.load_file("../../config.yaml")
+			@db = Mysql2::Client.new(	:host=>yaml["mysql"]["yaml"],
+							:username => yaml["mysql"]["username"], 
+							:password=>yaml["mysql"]["password"],
+							:database=>"tyrant",
+							:reconnect => true )
+			@version = yaml["version"]
 			@headers = {
-	        	        "User-Agent" => "Mozilla/5.0 (X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1",
+	        	        "User-Agent" => yaml["user_agent"],
 	                	"Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 		                "Accept-Language" => "en-us,en;q=0.5",
 		                "Accept-Encoding" => "gzip, deflate",
 	        	        "Accept-Charset" => "ISO-8859-1,utf-8;q=0.7,*;q=0.7",
 		                "Connection" => "keep-alive",
-		                "Referer" => "http://kg.tyrantonline.com/Main.swf",
+		                "Referer" => "http://kg.tyrantonline.com/Main.swf?#{@version}",
 	        	        "Content-Type" => "application/x-www-form-urlencoded"
 		        }
 		end
