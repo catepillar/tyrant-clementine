@@ -1,0 +1,13 @@
+require 'cinch'
+require 'digest/md5'
+require 'net/http'
+require 'uri'
+require 'zlib'
+require 'json'
+require 'yaml'
+require 'thread'
+require 'mysql2'
+
+require 'clementine/channel.rb'
+require 'clementine/player.rb'
+require 'clementine/player_info.rb'

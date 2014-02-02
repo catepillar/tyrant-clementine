@@ -1,27 +1,13 @@
-require 'digest/md5'
-require "net/http"
-require "uri"
-require 'zlib'
-require 'json'
-require 'yaml'
-require 'thread'
-require 'mysql2'
-
 module Clementine
 	class Player
 
 		def initialize(opts = {})
 			$mutex ||= Mutex.new		#fancy ruby trick
 			@user_id=opts[:user_id].to_i
-			yaml = YAML.load_file("#{File.dirname(__FILE__)}/../../config.yaml")
-			@db = Mysql2::Client.new(	:host=>yaml["mysql"]["yaml"],
-							:username => yaml["mysql"]["username"],
-							:password=>yaml["mysql"]["password"],
-							:database=>"tyrant",
-							:reconnect => true )
-			@version = yaml["version"]
+			@db = opts[:db]
+			@version = opts[:version]
 			@headers = {
-	        	        "User-Agent" => yaml["user_agent"],
+	        	        "User-Agent" => opts[:user_agent],
 	                	"Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 		                "Accept-Language" => "en-us,en;q=0.5",
 		                "Accept-Encoding" => "gzip, deflate",
