@@ -89,11 +89,6 @@ module Clementine
 				server = r['server']
 				clientcode = r['client_code']
 			end
-			flashcode = "694cc52b14f4f75a37721125d1819c69"
-			auth_token = "2a80d1d2994bb18eb97d05d9bec45dad284347b6ae85e16d51252b4d056b858a"
-			client_code = 0
-			server = "kg"
-			time = Time.now.to_i/(60*15)
 
 			response = {}
 			clientcode = 0
