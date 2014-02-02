@@ -21,10 +21,10 @@ module Clementine
 		attr_reader :json, :response, :t
 
 		def inflate(string)
-	        	zstream = Zlib::GzipReader.new(StringIO.new(string))
-		        buf = zstream.read
-		        zstream.finish
-	        	buf
+			zstream = Zlib::GzipReader.new(StringIO.new(string))
+			buf = zstream.read
+			zstream.finish
+			buf
 		end
 
 		def prep_data(message, data)
@@ -37,11 +37,6 @@ module Clementine
 				server = r['server']
 				clientcode = r['client_code']
 			end
-
-			flashcode = "694cc52b14f4f75a37721125d1819c69"
-			auth_token = "2a80d1d2994bb18eb97d05d9bec45dad284347b6ae85e16d51252b4d056b858a"
-			client_code = 0
-			server = "kg"
 
 			string = "#{data}"
 			string << "&flashcode=#{flashcode}"
@@ -85,7 +80,7 @@ module Clementine
 		end
 
 		def find_client_code()
-			codes = (0..1000).to_a.shuffle
+			codes = (0..1000).to_a.shuffle		#randomize the code order, mostly for fun.
 
 			flashcode,auth_token,server,clientcode = "","","",0
 			@db.query("SELECT flashcode, auth_token, server, client_code from tyrant_users where user_id=#{@user_id}").each do |r|

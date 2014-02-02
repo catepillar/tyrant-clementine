@@ -3,6 +3,7 @@ module Clementine
 		def initialize(channel)
 
 			@channel = channel
+			@features = {}
 
 		end
 		attr_accessor :features
@@ -16,6 +17,11 @@ module Clementine
 
 		def to_s()
 			@features.inspect.gsub(/"/,"")
+		end
+
+		def [](arg)
+			return false unless @features.has_key? arg
+			return @features[arg]
 		end
 	end
 end

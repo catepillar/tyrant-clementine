@@ -7,7 +7,11 @@ require 'json'
 require 'yaml'
 require 'thread'
 require 'mysql2'
+require 'nokogiri'
+require 'damerau-levenshtein'
 
 require 'clementine/channel.rb'
 require 'clementine/player.rb'
 require 'clementine/player_info.rb'
+require 'clementine/vault.rb'
+require 'clementine/card_lib.rb

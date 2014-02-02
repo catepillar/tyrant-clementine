@@ -1,22 +1,23 @@
 ---
-mysql:
+mysql:                  #Info on connecting to the sql server.
   username: username
   password: password
   hostname: hostname
-version: 2.17.14
+user_id: 0              #used in non-faction requests, like !player, and !vault
+version: 2.17.14        #the tyrant version
 user_agent: 'Clementine IRC Bot. Source: http://github.com/catepillar/tyrant-clementine'
-bot:
+bot:                    #Irc bot configuration
   name: botname
   password: password
   identify: true
   server: irc.mibbit.net
-plugins:
+plugins:                #the plugins and options associated with them
   PlayerInfo:
-    user_id: 0
     admins:
     - name1
     - name2
   FactionInfo: {}
-channels:      #channels need quotes because of the "#" sign
+  Vault: {}
+channels:               #Channels to join on start. Channels need quotes because of the "#" sign
 - "#channel1"
 - "#channel1"
