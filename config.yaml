@@ -5,3 +5,18 @@ mysql:
   hostname: hostname
 version: 2.17.14
 user_agent: 'Clementine IRC Bot. Source: http://github.com/catepillar/tyrant-clementine'
+bot:
+  name: botname
+  password: password
+  identify: true
+  server: irc.mibbit.net
+plugins:
+  PlayerInfo:
+    user_id: 0
+    admins:
+    - name1
+    - name2
+  FactionInfo: {}
+channels:      #channels need quotes because of the "#" sign
+- "#channel1"
+- "#channel1"
