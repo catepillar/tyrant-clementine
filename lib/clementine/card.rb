@@ -1,5 +1,5 @@
 module Clementine
-	class Vault
+	class Card
 		include Cinch::Plugin
 
 		match /update \b(\S+)\b/i, :method => :update
@@ -102,7 +102,9 @@ module Clementine
 			end
 
 			str,hash = hash(cards)
-			
+
 			m.reply "Corrections: #{str.join(", ")}" if str.length > 0
 			m.reply "#{m.user.nick}: #{hash}"
 		end
+	end
+end

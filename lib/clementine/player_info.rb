@@ -6,12 +6,11 @@ module Clementine
 		match /factionid (\d+)/i, :method => :faction_id
 		match /link (.*)/i, :method => :link
 
-		match /raid (\d+)/i, :method => :raid
-		match /raid user (\S+)/i, :method => :raid_user
+		
 
 		match /player (\S+)\Z/i, :method => :player
 
-		
+
 
 		match /enable (.*)/i, :method => :enable
 		match /disable (.*)/i, :method => :disable
