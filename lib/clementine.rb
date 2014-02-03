@@ -10,8 +10,12 @@ require 'mysql2'
 require 'nokogiri'
 require 'damerau-levenshtein'
 
-require 'clementine/channel.rb'
-require 'clementine/player.rb'
-require 'clementine/player_info.rb'
-require 'clementine/vault.rb'
-require 'clementine/card_lib.rb
+require_relative 'clementine/channel.rb'
+require_relative 'clementine/player.rb'
+require_relative 'clementine/player_info.rb'
+require_relative 'clementine/vault.rb'
+require_relative 'clementine/card_lib.rb'
+
+module Clementine
+	BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+end

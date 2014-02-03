@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "clementine"
+require_relative "lib/clementine.rb"
 
 bot = Cinch::Bot.new do
 	configure do |c|
