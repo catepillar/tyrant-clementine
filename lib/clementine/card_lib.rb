@@ -1,5 +1,5 @@
 #this is kinda hacked together for IRC use only.  Could probably stand to be cleaned up quite a bit.
-Module Clementine
+module Clementine
 	class CardLib
 
 		attr_reader :names, :set, :id, :ids
