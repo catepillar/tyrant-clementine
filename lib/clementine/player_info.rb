@@ -2,7 +2,7 @@ module Clementine
 	class PlayerInfo
 		include Cinch::Plugin
 
-		
+
 
 
 
@@ -22,18 +22,18 @@ module Clementine
 			@player = shared[:player]
 
 			@names = Hash.new
-			@tyrant = Tyrant.new
+			#@tyrant = Tyrant.new
 			@admins = @config["admins"]
 
-			@cards = CardHash.new
+			#@cards = super
 			@dl = DamerauLevenshtein
 
 			@channels = Hash.new
 
-			m = Nokogiri::XML(File.open("missions.xml"))
-			@total_factions = m.xpath("/root/faction").size
-			a = Nokogiri::XML(File.open("achievements.xml"))
-			@total_achievements = a.xpath("/root/achievement").size
+			#m = Nokogiri::XML(File.open("missions.xml"))
+			#@total_factions = m.xpath("/root/faction").size
+			#a = Nokogiri::XML(File.open("achievements.xml"))
+			#@total_achievements = a.xpath("/root/achievement").size
 		end
 	end
 end
