@@ -17,7 +17,7 @@ bot = Cinch::Bot.new do
 							:version=>yaml["version"],
 							:user_agent=>yaml["user_agent"]
 		                   )
-		puts player.user_id
+		puts player.send_request("getName", "target_id=#{player.user_id}").inspect
 
 		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
 

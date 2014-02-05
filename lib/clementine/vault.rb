@@ -8,7 +8,7 @@ module Clementine
 			super
 
 			@player = shared[:player]
-			puts @player.user_id
+			
 			@cards = shared[:cards]
 			@channels = shared[:channels]
 
