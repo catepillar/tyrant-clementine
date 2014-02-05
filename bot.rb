@@ -13,11 +13,10 @@ bot = Cinch::Bot.new do
 		db = Mysql2::Client.new(opts)
 
 		player = Clementine::Player.new(:user_id => yaml["user_id"],
-							:db => @db,
+							:db => db,
 							:version=>yaml["version"],
 							:user_agent=>yaml["user_agent"]
 		                   )
-		puts player.send_request("getName", "target_id=#{player.user_id}").inspect
 
 		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
 

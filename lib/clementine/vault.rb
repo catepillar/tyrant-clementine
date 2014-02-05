@@ -8,7 +8,7 @@ module Clementine
 			super
 
 			@player = shared[:player]
-			
+
 			@cards = shared[:cards]
 			@channels = shared[:channels]
 
