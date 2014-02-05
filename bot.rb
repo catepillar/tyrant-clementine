@@ -21,12 +21,12 @@ bot = Cinch::Bot.new do
 		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
 
 		plugins = yaml["plugins"].keys.collect { |p| Object.const_get("Clementine::#{p}") }
-		plugins << Clementine::ChannelManager
+		base_plugins = [Clementine::ChannelManager]
 
 		c.nick     = yaml["bot"]["name"]
 		c.server   = yaml["bot"]["server"]
 		c.channels = yaml["channels"]
-		c.plugins.plugins = plugins
+		c.plugins.plugins = plugins+base_plugins
 		c.shared = {:db=>db,
 		            :config=>yaml,
 		            :player=>player,
