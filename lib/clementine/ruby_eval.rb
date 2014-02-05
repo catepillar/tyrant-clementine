@@ -6,6 +6,6 @@ class RubyEval
 
   def execute(msg, query)
 	return unless msg.user.authname == "catepillar"
-    msg.reply eval query
+    msg.reply "#{eval query}"
   end
 end
