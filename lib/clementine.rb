@@ -20,6 +20,7 @@ require_relative 'clementine/card.rb'
 require_relative 'clementine/kongregate.rb'
 require_relative 'clementine/raid.rb'
 require_relative 'clementine/faction_info.rb'
+require_relative 'clementine/ruby_eval.rb'
 
 module Clementine
 	BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
