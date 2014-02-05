@@ -70,13 +70,15 @@ module Clementine
 			return unless @channels[m.channel][:faction]
 			factions = Array.new
 
-			@db.query(%q {
+			@db.query(<<-SQL
 			        SELECT *
 			         FROM factions
 			         WHERE name
 			         LIKE \"#{@db.escape(name)}\"
 			         ORDER BY rating desc, level desc, wins desc
-			         LIMIT 3}).each do |r|
+			         LIMIT 3
+					SQL
+			         ).each do |r|
 				factions.push r
 			end
 			@bot.log(factions.inspect)
