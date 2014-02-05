@@ -5,20 +5,20 @@ require_relative "lib/clementine.rb"
 bot = Cinch::Bot.new do
 	configure do |c|
 		yaml = YAML.load_file("#{File.dirname(__FILE__)}/config.yaml")
-		db = Mysql2::Client.new(:host=>yaml["mysql"]["yaml"],
+		opts = {:host=>yaml["mysql"]["host"],
 								:username => yaml["mysql"]["username"],
-								:password=>yaml["mysql"]["password"],
 								:database=>yaml["mysql"]["database"],
-								:reconnect => true
-		                       )
+								:reconnect => true}
+		opts[:password] = yaml["mysql"]["password"] if yaml["mysql"].has_key? "password"
+		db = Mysql2::Client.new(opts)
 
-		player = Player.new(:user_id => yaml["user_id"],
+		player = Clementine::Player.new(:user_id => yaml["user_id"],
 							:db => @db,
 							:version=>yaml["version"],
 							:user_agent=>yaml["user_agent"]
 		                   )
 
-		cards = CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
+		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
 
 		c.nick     = yaml["bot"]["name"]
 		c.server   = yaml["bot"]["server"]
@@ -29,7 +29,7 @@ bot = Cinch::Bot.new do
 		            :player=>player,
 		            :channels=>{}
 		           }
-		c.password = yaml["bot"]["password"] if yaml["bot"]["identify"]
+		c.password = yaml["bot"]["password"] if yaml["bot"].has_key? "password"
 	end
 end
 

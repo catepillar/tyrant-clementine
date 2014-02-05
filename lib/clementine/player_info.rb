@@ -2,11 +2,9 @@ module Clementine
 	class PlayerInfo
 		include Cinch::Plugin
 
-		match /faction (.*)/i, :method => :faction
-		match /factionid (\d+)/i, :method => :faction_id
-		match /link (.*)/i, :method => :link
-
 		
+
+
 
 		match /player (\S+)\Z/i, :method => :player
 

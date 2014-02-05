@@ -9,7 +9,6 @@ user_agent: 'Clementine IRC Bot. Source: http://github.com/catepillar/tyrant-cle
 bot:                    #Irc bot configuration
   name: botname
   password: password
-  identify: true
   server: irc.mibbit.net
 plugins:                #the plugins and options associated with them
   PlayerInfo:
