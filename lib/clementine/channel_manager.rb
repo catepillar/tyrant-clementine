@@ -8,17 +8,15 @@ module Clementine
 			super
 
 			@channels = shared[:channels]
+			@keys = shared[:channel_keys]
 
 		end
 
 		def join(m, *args)
 			if(m.user == @bot)
 				@channels[m.channel.name] = ClementineChannel.new(m.channel)
-				shared[:plugins].each do |p|
-					m.reply p.to_s
-					if p.methods.include? :keys
-						p.keys.each { |v| @channels[m.channel.name][v] = true }
-					end
+				@keys.each do |key|
+					@channels[m.channel.name].features[key] = true
 				end
 			end
 		end

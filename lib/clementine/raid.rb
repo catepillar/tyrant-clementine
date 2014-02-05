@@ -5,12 +5,10 @@ module Clementine
 		match /raid (\S+)/i, :method => :raid_user
 		match /raidid (\d+)/i, :method => :raid_id
 
-		def self.keys
-			return [:raid]
-		end
-
 		def initialize(*args)
 			super
+
+			shared[:channel_keys].push :raid
 
 			@channels = shared[:channels]
 			@player = shared[:player]

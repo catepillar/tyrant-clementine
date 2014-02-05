@@ -6,12 +6,10 @@ module Clementine
 		match /card (.*)/i, :method => :cards
 		match /hash (.*)/i, :method => :deck_hash
 
-		def self.keys
-			return [:card, :hash]
-		end
-
 		def initialize(*args)
 			super
+
+			shared[:channel_keys].push :card, :hash
 
 			@cards = shared[:cards]
 			@channels = shared[:channels]

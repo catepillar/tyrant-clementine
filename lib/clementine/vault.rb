@@ -4,12 +4,11 @@ module Clementine
 
 		match /vault/i, :method => :vault
 
-		def self.keys
-			return [:vault]
-		end
 
 		def initialize(*args)
 			super
+
+			shared[:channel_keys].push :vault
 
 			@player = shared[:player]
 

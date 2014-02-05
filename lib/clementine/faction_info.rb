@@ -6,12 +6,11 @@ module Clementine
 		match /factionid (\d+)/i, :method => :faction_id
 		match /link (.*)/i, :method => :link
 
-		def self.keys
-			return [:faction]
-		end
 
 		def initialize(*args)
 			super
+
+			shared[:channel_keys].push :faction
 
 			@channels = shared[:channels]
 			@db = shared[:db]
