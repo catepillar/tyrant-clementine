@@ -2,7 +2,7 @@ module Clementine
 	class Vault
 		include Cinch::Plugin
 
-		match /vault/i, :method => :faction
+		match /vault/i, :method => :vault
 
 		def initialize(*args)
 			super
@@ -12,12 +12,19 @@ module Clementine
 			@cards = shared[:cards]
 			@channels = shared[:channels]
 
-			@vault = @player.send_request("getMarketInfo")
-			@vault_timer_first = Timer(10801 - (@vault["time"] - @vault["cards_for_sale_starting"]),
-			                           method: :vault_timer_first,
-			                           start_automatically: true
-			                          )
-			@time_offset = Time.now.to_i - @vault["time"]
+			Thread.new {
+				@vault = @player.send_request("getMarketInfo")
+
+				while @vault.has_key?["duplicate_client"]
+					sleep 5
+					@vault = @player.send_request("getMarketInfo")
+				end
+				@vault_timer_first = Timer(10801 - (@vault["time"] - @vault["cards_for_sale_starting"]),
+										method: :vault_timer_first,
+										start_automatically: true
+										)
+				@time_offset = Time.now.to_i - @vault["time"]
+			}
 		end
 
 		def vault_timer_first(*args)
