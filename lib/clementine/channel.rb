@@ -1,5 +1,6 @@
 module Clementine
-	class TyrantChannel
+	class Channel
+
 		def initialize(channel)
 
 			@channel = channel
@@ -20,8 +21,8 @@ module Clementine
 		end
 
 		def [](arg)
-			return false unless @features.has_key? arg
-			return @features[arg]
+			return false unless @features.has_key? arg.downcase
+			return @features[arg.downcase]
 		end
 	end
 end

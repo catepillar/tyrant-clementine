@@ -29,7 +29,8 @@ bot = Cinch::Bot.new do
 		c.shared = {:db=>db,
 		            :config=>yaml,
 		            :player=>player,
-		            :channels=>{}
+		            :channels=>{},
+		            :plugins=>plugins
 		           }
 		c.password = yaml["bot"]["password"] if yaml["bot"].has_key? "password"
 	end

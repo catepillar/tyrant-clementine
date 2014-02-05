@@ -11,6 +11,7 @@ require 'nokogiri'
 require 'damerau-levenshtein'
 
 require_relative 'clementine/channel.rb'
+require_relative 'clementine/channel_manager.rb'
 require_relative 'clementine/player.rb'
 require_relative 'clementine/player_info.rb'
 require_relative 'clementine/vault.rb'

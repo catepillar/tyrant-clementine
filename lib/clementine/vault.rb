@@ -4,6 +4,10 @@ module Clementine
 
 		match /vault/i, :method => :vault
 
+		def self.keys
+			return [:vault]
+		end
+
 		def initialize(*args)
 			super
 
