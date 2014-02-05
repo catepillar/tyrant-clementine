@@ -17,6 +17,7 @@ bot = Cinch::Bot.new do
 							:version=>yaml["version"],
 							:user_agent=>yaml["user_agent"]
 		                   )
+		puts player.user_id
 
 		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
 

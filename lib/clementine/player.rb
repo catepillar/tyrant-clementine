@@ -18,7 +18,7 @@ module Clementine
 		        }
 			@t = Thread.new {}
 		end
-		attr_reader :json, :response, :t
+		attr_reader :json, :response, :t, :user_id
 
 		def inflate(string)
 			zstream = Zlib::GzipReader.new(StringIO.new(string))
