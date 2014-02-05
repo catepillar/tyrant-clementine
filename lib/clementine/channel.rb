@@ -1,5 +1,5 @@
 module Clementine
-	class Channel
+	class ClementineChannel
 
 		def initialize(channel)
 

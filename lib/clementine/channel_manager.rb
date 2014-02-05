@@ -13,7 +13,7 @@ module Clementine
 
 		def join(m, *args)
 			if(m.user == @bot)
-				@channels[m.channel.name] = Channel.new(m.channel)
+				@channels[m.channel.name] = ClementineChannel.new(m.channel)
 				shared[:plugins].each do |p|
 					m.reply p.to_s
 					if p.methods.include? :keys
