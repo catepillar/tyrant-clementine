@@ -15,7 +15,7 @@ module Clementine
 			if(m.user == @bot)
 				@channels[m.channel.name] = Channel.new(m.channel)
 				shared[:plugins].each do |p|
-					p.keys.each { |v| @channels[m.channel.name][v] = true }
+					p.keys.each { |v| @channels[m.channel.name][v] = true } if p.methods.include? keys
 				end
 			end
 		end
