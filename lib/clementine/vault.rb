@@ -18,7 +18,7 @@ module Clementine
 			t = Thread.new do
 				@vault = @player.send_request("getMarketInfo")
 
-				while @vault.has_key?["duplicate_client"]
+				while @vault.has_key? "duplicate_client"
 					Channel("#ifs").msg "Have a duplicate_client"
 					sleep 5
 					@vault = @player.send_request("getMarketInfo")
