@@ -15,7 +15,7 @@ module Clementine
 			@cards = shared[:cards]
 			@channels = shared[:channels]
 
-			Thread.new {
+			t = Thread.new do
 				@vault = @player.send_request("getMarketInfo")
 
 				while @vault.has_key?["duplicate_client"]
@@ -30,7 +30,8 @@ module Clementine
 				@time_offset = Time.now.to_i - @vault["time"]
 
 				Channel("#ifs").msg @vault.inspect
-			}
+			end
+			t.join
 		end
 
 		def vault_timer_first(*args)
