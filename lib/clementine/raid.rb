@@ -20,30 +20,40 @@ module Clementine
 			if user_id.nil?
 				m.reply "Player not found."
 			else
-				raid(m, resp["user_id"])
+				raid(m, user_id)
 			end
+		end
+
+		def format_seconds(time)
+			days,time = time.divmod(86400)
+			hours,time = time.divmod(3600)
+			minutes,time = time.divmod(60)
+			seconds = time
+			string = ""
+			string << days + "d " if days > 0
+			string << [secs,mins,hours].map { |e| e.to_s.rjust(2,'0') }.join ':'
+			return string
 		end
 
 
 	def raid_id(m, raid_id)			#kinda ugly, but I don't want to refactor
 		return unless @channels[m.channel][:raid]
 		json = @player.send_request("getRaidInfo", "user_raid_id=" + raid_id.to_s)
-		@names[raid_id.to_s] = @player.send_request("getName","target_id="+raid_id.to_s)["name"] if @names[raid_id.to_s] == nil
-		time_l = (json["end_time"].to_i - Time.now.to_i)
-		time_l = time_l*-1 if time_l < 0
+		if json.has_key? "duplicate_client"
+			m.reply "Please wait a few seconds before retrying."
+			return
+		end
+		name = @player.send_request("getName","target_id="+raid_id.to_s)["name"] if @names[raid_id.to_s] == nil
+		time_left = (json["end_time"].to_i - Time.now.to_i)
+		time_left = time_l*-1 if time_l < 0
 		if(json.has_key? "end_time")
-			str = @names[raid_id.to_s] + "'s " + Format(:bold,Format(:underline,@tyrant.get_raid(json["raid_id"])))
+			str = name + "'s " + Format(:bold,Format(:underline,@tyrant.get_raid(json["raid_id"])))
 			str += ": #{json["raid_members"].keys.length} Members, #{json["health"]} Health, "
-			time_left = ""
-			time_left.concat((time_l/86400).to_s + "d ") if ((json["end_time"].to_i - Time.now.to_i)/86400) != 0
-			time_l = time_l%86400
-			time_left.concat "#{time_l/3600}hr " if ((json["end_time"].to_i - Time.now.to_i)/3600) != 0
-			time_l = time_l%3600
-			time_left.concat((time_l/60).to_s + "m ") if ((json["end_time"].to_i -  Time.now.to_i)/60) != 0
-			time_l = time_l%60
-			time_left.concat(time_l.to_s + "s")
-			str += time_left + " left | http://www.kongregate.com/games/synapticon/tyrant?kv_joinraid=#{raid_id}" if json["end_time"].to_i - Time.now.to_i > 0
-			str += "ended #{time_left} ago" if json["end_time"].to_i - Time.now.to_i <= 0
+			if(json["end_time"].to_i - Time.now.to_i > 0)
+				str += format_seconds(time_left) + " left | http://www.kongregate.com/games/synapticon/tyrant?kv_joinraid=#{raid_id}"
+			else
+				str += "ended #{format_seconds(time_left)} ago"
+			end
 			m.reply str
 		else
 			m.reply "Error in raid id"
