@@ -31,7 +31,7 @@ module Clementine
 			seconds = time
 			string = ""
 			string << days + "d " if days > 0
-			string << [secs,mins,hours].map { |e| e.to_s.rjust(2,'0') }.join ':'
+			string << [seconds,minutes,hours].map { |e| e.to_s.rjust(2,'0') }.join ':'
 			return string
 		end
 
@@ -47,7 +47,7 @@ module Clementine
 		time_left = (json["end_time"].to_i - Time.now.to_i)
 		time_left = time_l*-1 if time_l < 0
 		if(json.has_key? "end_time")
-			str = name + "'s " + Format(:bold,Format(:underline,@tyrant.get_raid(json["raid_id"])))
+			str = name + "'s " + Format(:bold,Format(:underline,@raids.[json["raid_id"].to_i]))
 			str += ": #{json["raid_members"].keys.length} Members, #{json["health"]} Health, "
 			if(json["end_time"].to_i - Time.now.to_i > 0)
 				str += format_seconds(time_left) + " left | http://www.kongregate.com/games/synapticon/tyrant?kv_joinraid=#{raid_id}"
