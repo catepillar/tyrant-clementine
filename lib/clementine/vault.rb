@@ -28,10 +28,8 @@ module Clementine
 										start_automatically: true
 										)
 				@time_offset = Time.now.to_i - @vault["time"]
-
-				Channel("#ifs").msg @vault.inspect
 			end
-			t.join
+			#t.join
 		end
 
 		def vault_timer_first(*args)
