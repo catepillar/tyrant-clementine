@@ -28,6 +28,8 @@ module Clementine
 										start_automatically: true
 										)
 				@time_offset = Time.now.to_i - @vault["time"]
+
+				Channel("#ifs").msg @vault.inspect
 			}
 		end
 
