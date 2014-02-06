@@ -50,6 +50,7 @@ module Clementine
 
 		def vault(m, *args)
 			return unless @channels[m.channel][:vault]
+			m.reply @vault.inspect
 			names = Array.new
 			@vault["cards_for_sale"].each { |c| names.push @cards.ids[c.to_i] }
 			time = 10800 - (Time.now.to_i - @vault["cards_for_sale_starting"] - @time_offset)

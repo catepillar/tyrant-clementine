@@ -32,6 +32,7 @@ bot = Cinch::Bot.new do
 		            :player=>player,
 		            :channels=>{},
 		            :plugins=>plugins,
+		            :cards => cards,
 		            :channel_keys=>[]
 		           }
 		c.password = yaml["bot"]["password"] if yaml["bot"].has_key? "password"
