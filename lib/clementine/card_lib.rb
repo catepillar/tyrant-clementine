@@ -95,28 +95,28 @@ module Clementine
 			set = xpath.at("set").text.to_i
 			cid = xpath.at("id").text.to_i
 			@ids[cid] = name.dup
+			string += "[#{cid}]: "
 			if(cidto_type(cid) == "Assault" or cidto_type(cid) == "Structure")
-				string += " ["
 				if(xpath.at("attack").nil?)
 					string += "-/"
 				else
 					string += xpath.at("attack").text + "/"
 				end
-				string += "#{xpath.at("health").text}/#{xpath.at("cost").text}]"
+				string += "#{xpath.at("health").text}/#{xpath.at("cost").text}"
 			elsif cidto_type(cid) == "Commander"
 				string += " #{xpath.at("health").text} HP"
 			end
+			string += " Unique" unless xpath.at("unique").nil?
 			string += " #{rareto_s xpath.at("rarity").text}" unless xpath.at("rarity").nil?
-			string += " Unique" if @unique unless xpath.at("unique").nil?
 			string += " #{@types[xpath.at("type").text]}" unless xpath.at("type").nil?
 			string += " #{cidto_type cid}"
 			string += ", " + @set[xpath.at("set").text]
 			skills = Array.new
-			if xpath.xpath(".//skill").length > 0
-				string += "\n"
-				xpath.xpath(".//skill").each {|skillpath| skills.push (skill skillpath) }
+			xpath.xpath(".//skill").each {|skillpath| skills.push (skill skillpath) }
+			if skills.length > 0
+				string += ", "
+				string += skills.join(", ")
 			end
-			string += skills.join(", ")
 			name = name.downcase!
 			@names[name] = string
 			@id[name.sub(",","")] = [cid,(xpath.at("name").text + "#{set == 5002 ? "*" : ""}")]
@@ -141,45 +141,21 @@ module Clementine
 		def skill(xpath)
 			name = xpath.attributes["id"].value
 			name[0] = name[0].capitalize
+			name = "AntiAir" if name == "Antiair"
 			string = name
-			string += " all" unless xpath.attributes["all"].nil?
+			string += " All" unless xpath.attributes["all"].nil?
 			string += " #{@types[xpath.attributes["y"].value]}" unless xpath.attributes["y"].nil?
 			if name == "Summon"
-				string += " #{xpath.at("/root/unit[id=#{xpath.attributes["x"].value}]/name").text}"
+				string += " #{xpath.at("/root/unit[id=#{xpath.attributes["x"].value}]/name").text}[#{xpath.attributes["x"].value}]"
 			else
 				string += " #{xpath.attributes["x"].value}" unless xpath.attributes["x"].nil?
 			end
 			string += " #{xpath.attributes["z"].value}" unless xpath.attributes["z"].nil?
-			on = false
-			if ! xpath.attributes["attacked"].nil?
-				string += " on attacked"
-				on = true
-			end
-			if ! xpath.attributes["play"].nil?
-				if on
-					string += ", play"
-				else
-					string += " on play"
-					on = true
-				end
-			end
-			if ! xpath.attributes["died"].nil?
-				if on
-					string += ", death"
-				else
-					string += " on death"
-					on = true
-				end
-			end
 
-			if ! xpath.attributes["kill"].nil?
-				if on
-					string += ", kill"
-				else
-					string += " on kill"
-					on = true
-				end
-			end
+			string += " on Attacked" if ! xpath.attributes["attacked"].nil?
+			string += " on Play" if ! xpath.attributes["played"].nil?
+			string += " on Death" if ! xpath.attributes["died"].nil?
+			string += " on Kill" if ! xpath.attributes["kill"].nil?
 
 			return string
 		end
