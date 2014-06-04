@@ -80,7 +80,11 @@ module Clementine
 		end
 
 		def find_client_code()
+
+			puts "Finding client code"
+
 			codes = (0..1000).to_a.shuffle		#randomize the code order, mostly for fun.
+			time = Time.now.to_i/(60*15)
 
 			flashcode,auth_token,server,clientcode = "","","",0
 			@db.query("SELECT flashcode, auth_token, server, client_code from tyrant_users where user_id=#{@user_id}").each do |r|
@@ -100,7 +104,7 @@ module Clementine
 				clientcode = codes[index]
 				sdata = "?target_id=#{@user_id}"
 				sdata << "&flashcode=#{flashcode}"
-				sdata << "&time=#{Time.now.to_i/(60*15)}"
+				sdata << "&time=#{time}"
 				sdata << "&version=#{@version}"
 				sdata << "&hash=#{Digest::MD5.hexdigest("getName" + time.to_s + "fgjk380vf34078oi37890ioj43")}"
 				sdata << "&ccache=#{}"
