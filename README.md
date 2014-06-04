@@ -18,3 +18,4 @@ Gems you might need to install:
 * nokogiri
 * mysql2
 * cinch
+* levenshtein
