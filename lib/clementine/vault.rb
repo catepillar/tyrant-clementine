@@ -19,7 +19,6 @@ module Clementine
 				@vault = @player.send_request("getMarketInfo")
 
 				while @vault.has_key? "duplicate_client"
-					Channel("#ifs").msg "Have a duplicate_client"
 					sleep 5
 					@vault = @player.send_request("getMarketInfo")
 				end
@@ -34,7 +33,6 @@ module Clementine
 
 		def vault_timer_first(*args)
 			@vault_timer = Timer(10800, method: :vault_timer, start_automatically: true)
-			@vault = @player.send_request("getMarketInfo")
 			names = Array.new
 			@vault["cards_for_sale"].each { |c| names.push @cards.ids[c.to_i] }
 			@channels.each { |c,v| Channel(c).send "[VAULT] #{names.join(", ")}" if v[:vault] }
