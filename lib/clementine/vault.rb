@@ -31,6 +31,8 @@ module Clementine
 			#t.join
 		end
 
+		attr_accessor :time_offset
+
 		def vault_timer_first(*args)
 			@vault_timer = Timer(10800, method: :vault_timer, start_automatically: true)
 			names = Array.new
@@ -47,7 +49,6 @@ module Clementine
 
 		def vault(m, *args)
 			return unless @channels[m.channel][:vault]
-			m.reply @vault.inspect
 			names = Array.new
 			@vault["cards_for_sale"].each { |c| names.push @cards.ids[c.to_i] }
 			time = 10800 - (Time.now.to_i - @vault["cards_for_sale_starting"] - @time_offset)
