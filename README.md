@@ -17,3 +17,4 @@ Gems you might need to install:
 * Bigdecimal
 * nokogiri
 * mysql2
+* cinch
