@@ -100,7 +100,7 @@ module Clementine
 				clientcode = codes[index]
 				sdata = "?target_id=#{@user_id}"
 				sdata << "&flashcode=#{flashcode}"
-				sdata << "&time=#{time}"
+				sdata << "&time=#{Time.now.to_i/(60*15)}"
 				sdata << "&version=#{@version}"
 				sdata << "&hash=#{Digest::MD5.hexdigest("getName" + time.to_s + "fgjk380vf34078oi37890ioj43")}"
 				sdata << "&ccache=#{}"
