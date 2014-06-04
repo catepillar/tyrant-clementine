@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `tyrant_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tyrant_users` (
   `user_id` int(10) unsigned NOT NULL,
-  `server` varchar(5) NOT NULL,
+  `server` varchar(12) NOT NULL,
   `auth_token` char(64) NOT NULL,
   `flashcode` char(32) NOT NULL,
   `client_code` int(10) unsigned DEFAULT NULL,

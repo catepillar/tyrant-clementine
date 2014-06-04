@@ -19,7 +19,7 @@ bot = Cinch::Bot.new do
 		                   )
 
 		cards = Clementine::CardLib.new("#{File.dirname(__FILE__)}/assets/cards.xml")
-		raids = Clementien::RaidLib.new("#{File.dirname(__FILE__)}/assets/raids.xml")
+		raids = Clementine::RaidLib.new("#{File.dirname(__FILE__)}/assets/raids.xml")
 
 		plugins = yaml["plugins"].keys.collect { |p| Object.const_get("Clementine::#{p}") }
 		base_plugins = [Clementine::ChannelManager, RubyEval]
@@ -35,7 +35,8 @@ bot = Cinch::Bot.new do
 		            :plugins=>plugins,
 		            :cards => cards,
 		            :raids => raids,
-		            :channel_keys=>[]
+		            :channel_keys=>[],
+		            :names => {}
 		           }
 		c.password = yaml["bot"]["password"] if yaml["bot"].has_key? "password"
 	end

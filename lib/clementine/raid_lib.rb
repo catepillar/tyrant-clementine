@@ -13,8 +13,8 @@ module Clementine
 				f.close
 			end
 
-			@raid_xml = Nokogiri::XML(File.open(@path))
-			@raids_xml.xpath("/root/raid").each do |xml|
+			@raid_xml = Nokogiri::XML(File.open(path))
+			@raid_xml.xpath("/root/raid").each do |xml|
 				@id[xml.at("id").text.to_i] = xml.at("name").text
 			end
 		end

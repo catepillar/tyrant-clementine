@@ -12,6 +12,8 @@ module Clementine
 
 			@channels = shared[:channels]
 			@player = shared[:player]
+			@names = shared[:names]
+			@raids = RaidLib.new("assets/raids.xml")
 		end
 
 		def raid_user(m, username)
@@ -20,7 +22,7 @@ module Clementine
 			if user_id.nil?
 				m.reply "Player not found."
 			else
-				raid(m, user_id)
+				raid_id(m, user_id)
 			end
 		end
 
@@ -30,24 +32,24 @@ module Clementine
 			minutes,time = time.divmod(60)
 			seconds = time
 			string = ""
-			string << days + "d " if days > 0
-			string << [seconds,minutes,hours].map { |e| e.to_s.rjust(2,'0') }.join ':'
+			string << days.to_s + "d " if days > 0
+			string << [seconds,minutes,hours].map { |e| e.to_s.rjust(2,'0') }.join(':')
 			return string
 		end
 
 
 	def raid_id(m, raid_id)			#kinda ugly, but I don't want to refactor
 		return unless @channels[m.channel][:raid]
-		json = @player.send_request("getRaidInfo", "user_raid_id=" + raid_id.to_s)
+		json = @player.send_request("getRaidInfo", "user_raid_id=" + raid_id.to_s)["raid_info"]
 		if json.has_key? "duplicate_client"
 			m.reply "Please wait a few seconds before retrying."
 			return
 		end
-		name = @player.send_request("getName","target_id="+raid_id.to_s)["name"] if @names[raid_id.to_s] == nil
+				name = @player.send_request("getName","target_id="+raid_id.to_s)["name"] if @names[raid_id.to_s] == nil
 		time_left = (json["end_time"].to_i - Time.now.to_i)
-		time_left = time_l*-1 if time_l < 0
+		time_left = time_left*-1 if time_left < 0
 		if(json.has_key? "end_time")
-			str = name + "'s " + Format(:bold,Format(:underline,@raids.[json["raid_id"].to_i]))
+			str = name + "'s " + Format(:bold,Format(:underline,@raids[json["raid_id"].to_i]))
 			str += ": #{json["raid_members"].keys.length} Members, #{json["health"]} Health, "
 			if(json["end_time"].to_i - Time.now.to_i > 0)
 				str += format_seconds(time_left) + " left | http://www.kongregate.com/games/synapticon/tyrant?kv_joinraid=#{raid_id}"
