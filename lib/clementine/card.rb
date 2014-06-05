@@ -45,7 +45,7 @@ module Clementine
 				end
 			end
 			if ret
-				return "#{m.user}: #{string}"
+				return string
 			else
 				return nil
 			end
@@ -53,6 +53,7 @@ module Clementine
 
 		def hash(cards)
 			str = Array.new
+			hash = ""
 			cards.downcase!
 			array = cards.split(",")
 			hash = ""
@@ -97,7 +98,7 @@ module Clementine
 
 			hash = unhash(cards) if(cards.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-\/]/).nil?)
 			unless hash.nil?
-				m.reply hash
+				m.reply "#{m.user.nick}: #{hash}"
 				return
 			end
 
