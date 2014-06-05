@@ -24,7 +24,7 @@ module Clementine
 		def unhash(hash)
 			ret = true
 			string = ""
-			array = cards.scan(/-?../)
+			array = hash.scan(/-?../)
 			array.each do | i |
 				id = 0
 				if(i[0] == '-')
@@ -55,10 +55,9 @@ module Clementine
 			str = Array.new
 			cards.downcase!
 			array = cards.split(",")
-			bot.log("#{array}")
+			hash = ""
 			array.each do |a|
 				a.strip!
-				bot.log("#{a}")
 				num = 0
 				match = a.match(/\[(\d+)\](?:\s*#(\d+))?/)
 				if match.nil?
@@ -73,7 +72,6 @@ module Clementine
 						str.push "(#{a}->#{id.last})"
 						val = id[1].to_i
 					end
-					bot.log("#{id}")
 					if(val > 4000)
 						hash += "-" if(val > 4000)
 						val -= 4000
