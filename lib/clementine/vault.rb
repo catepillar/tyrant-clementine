@@ -43,6 +43,7 @@ module Clementine
 
 		def vault_timer(*args)
 			names = Array.new
+			@vault = @player.send_request("getMarketInfo")
 			@vault["cards_for_sale"].each { |c| names.push @cards.ids[c.to_i] }
 			@channels.each { |c,v| Channel(c).send "[VAULT] #{names.join(", ")}" if v[:vault] }
 		end
